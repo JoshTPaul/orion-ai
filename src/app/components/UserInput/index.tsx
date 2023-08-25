@@ -1,11 +1,6 @@
 import React from "react";
 
-function UserInput({
-  // setActiveStep,
-  setDevLink,
-  setDesignLink,
-  mutate,
-}: any) {
+function UserInput({ setDevLink, setDesignLink }: any) {
   const onSubmit = (e: any) => {
     e.preventDefault();
 
@@ -14,7 +9,6 @@ function UserInput({
 
     setDevLink(devLink);
     setDesignLink(designLink);
-    mutate();
   };
   return (
     <section>

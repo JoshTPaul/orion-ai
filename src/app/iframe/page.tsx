@@ -20,4 +20,4 @@ const Iframe = ({ onRefLoad }: any) => {
   );
 };
 
-export default Iframe;
+export default React.memo(Iframe);
