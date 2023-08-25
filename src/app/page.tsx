@@ -1,21 +1,13 @@
 "use client";
-import { styled } from "styled-components";
-import Iframe from "./iframe/page";
-import axios from "axios";
-
-const IF = styled.div``;
+import { QueryClientProvider } from "react-query";
+import HomeLayer from "./HomeLayer";
+import { reactQueryClient } from "./config/reactQueryClient";
 
 const Home = () => {
-  const onRefLoad = (ref: any) => {
-    axios.post("/api/ai", {
-      ref,
-    });
-  };
   return (
-    <IF>
-      <Iframe onRefLoad={onRefLoad} />
-      <p>SUBMIT</p>
-    </IF>
+    <QueryClientProvider client={reactQueryClient}>
+      <HomeLayer />
+    </QueryClientProvider>
   );
 };
 
