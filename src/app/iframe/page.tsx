@@ -1,12 +1,12 @@
 import React, { useRef } from "react";
 
-const Iframe = ({ onRefLoad }: any) => {
+const Iframe = ({ onRefLoad, link }: any) => {
   const ref = useRef(null);
 
   return (
     <iframe
       ref={ref}
-      src="http://localhost:3000/button"
+      src={link}
       width={1440}
       height={1024}
       onLoad={() =>
