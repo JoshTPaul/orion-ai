@@ -88,7 +88,7 @@ function Computation({
   const fetchApiData = () => {
     return axios.post("/api/ai", {
       devData,
-      designDataApi,
+      designData: designDataApi?.data?.data,
     });
   };
 
