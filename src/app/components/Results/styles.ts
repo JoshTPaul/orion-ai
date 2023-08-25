@@ -6,7 +6,9 @@ export const ResultsWrapper = styled.section`
   min-height: 100vh;
 
   .viewport {
+    position: relative;
     flex-grow: 1;
+    background-color: green;
   }
 
   .sideNav {
@@ -22,6 +24,21 @@ export const ResultsWrapper = styled.section`
     .listContainer {
       background: blue;
       flex-grow: 1;
+    }
+  }
+
+  iframe {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    scale: 0.35;
+
+    &.devFrame {
+      top: 25%;
+    }
+    &.designFrame {
+      top: 75%;
     }
   }
 `;
