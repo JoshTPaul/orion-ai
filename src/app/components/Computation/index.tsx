@@ -16,18 +16,6 @@ function Computation({ devLink, designLink, setActiveStep }: any) {
   //   });
   // };
 
-  const testFn = async () => {
-    fetch("https://localhost:3000/button")
-      .then((res) => res.text())
-      .then((responseText) => {
-        const doc = new DOMParser().parseFromString(responseText, "text/html");
-        const button = doc.querySelector("#button");
-        console.log("button", button);
-      });
-  };
-
-  testFn();
-
   return (
     <section>
       Computation Step:
