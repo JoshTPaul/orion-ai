@@ -4,20 +4,21 @@ function UserInput({
   // setActiveStep,
   setDevLink,
   setDesignLink,
+  mutate,
 }: any) {
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+
+    const devLink = e?.target?.[0]?.value;
+    const designLink = e?.target?.[1]?.value;
+
+    setDevLink(devLink);
+    setDesignLink(designLink);
+    mutate();
+  };
   return (
     <section>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-
-          const devLink = e?.target?.[0]?.value;
-          const designLink = e?.target?.[1]?.value;
-
-          setDevLink(devLink);
-          setDesignLink(designLink);
-        }}
-      >
+      <form onSubmit={onSubmit}>
         <div>
           Dev Link: <input />
         </div>
