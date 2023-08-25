@@ -3,7 +3,7 @@ import UserInput from "./components/UserInput";
 import { useEffect, useState } from "react";
 import Computation from "./components/Computation";
 import Results from "./components/Results";
-import { QueryClientProvider, useMutation } from "react-query";
+import { QueryClientProvider } from "react-query";
 import { reactQueryClient } from "./config/reactQueryClient";
 import "./globalStyles.css";
 
@@ -45,7 +45,7 @@ const Home = () => {
         />
       )}
       {activeStep === 2 && (
-        <Results designData={designData} devLink={devLink} />
+        <Results devLink={devLink} designLink={designLink} />
       )}
     </QueryClientProvider>
   );
