@@ -9,6 +9,7 @@ import Results from "./components/Results";
 import { QueryClientProvider } from "react-query";
 import HomeLayer from "./HomeLayer";
 import { reactQueryClient } from "./config/reactQueryClient";
+import "./globalStyles.css";
 
 const Home = () => {
   const onRefLoad = (ref: any) => {
