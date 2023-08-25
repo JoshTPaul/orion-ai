@@ -1,27 +1,28 @@
+import { msgConstructor } from "@/app/utils";
 import axios from "axios";
 import { ChatGPTAPI } from "chatgpt";
 import { NextResponse } from "next/server";
-import { stringify } from "flatted";
 
 export async function POST(req: Request, res: any) {
   try {
-    // const body = await req.json();
-    // const { ref } = body;
+    const body = await req.json();
+    const { ref } = body;
     const figmaData = await axios.get(
       "http://localhost:3000/api/get-figma-data"
     );
-    console.log(
-      "🚀 ~ file: route.ts:12 ~ POST ~ figmaData:",
-      typeof figmaData?.data
-    );
 
+    const { document, title, lastModified, thumbnailUrl } =
+      figmaData?.data?.data;
+
+    const msg = await msgConstructor(ref, document?.children);
+    console.log("🚀 ~ file: route.ts:18 ~ POST ~ msg:", { msg, ref, document });
     // const api = new ChatGPTAPI({
     //   apiKey: "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",
     // });
-    // const res = await api.sendMessage(body?.userResponse);
+    // const res = await api.sendMessage(msg);
     return await NextResponse.json(
       {
-        data: stringify(figmaData?.data),
+        r: "res",
       },
       { status: 200 }
     );

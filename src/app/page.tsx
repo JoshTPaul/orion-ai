@@ -6,6 +6,9 @@ import UserInput from "./components/UserInput";
 import { useEffect, useState } from "react";
 import Computation from "./components/Computation";
 import Results from "./components/Results";
+import { QueryClientProvider } from "react-query";
+import HomeLayer from "./HomeLayer";
+import { reactQueryClient } from "./config/reactQueryClient";
 
 const Home = () => {
   const onRefLoad = (ref: any) => {
@@ -26,7 +29,7 @@ const Home = () => {
   }, [activeStep, devLink, designLink]);
 
   return (
-    <>
+    <QueryClientProvider client={reactQueryClient}>
       {activeStep === 0 && (
         <UserInput setDevLink={setDevLink} setDesignLink={setDesignLink} />
       )}
@@ -38,7 +41,8 @@ const Home = () => {
         />
       )}
       {activeStep === 2 && <Results />}
-    </>
+      {/* <HomeLayer /> */}
+    </QueryClientProvider>
   );
 };
 
