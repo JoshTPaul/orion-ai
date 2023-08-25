@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Computation({ devLink, designLink }) {
+function Computation({ devLink, designLink, setActiveStep }: any) {
   return (
     <section>
       Computation Step:
@@ -11,6 +11,7 @@ function Computation({ devLink, designLink }) {
         <li>Combine</li>
         <li>Send to AI</li>
         <li>Get AI result</li>
+        <button onClick={() => setActiveStep(2)}>Submit</button>
       </ul>
     </section>
   );

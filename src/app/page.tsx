@@ -5,6 +5,7 @@ import axios from "axios";
 import UserInput from "./components/UserInput";
 import { useEffect, useState } from "react";
 import Computation from "./components/Computation";
+import Results from "./components/Results";
 
 const Home = () => {
   const onRefLoad = (ref: any) => {
@@ -30,8 +31,13 @@ const Home = () => {
         <UserInput setDevLink={setDevLink} setDesignLink={setDesignLink} />
       )}
       {activeStep === 1 && (
-        <Computation devLink={devLink} designLink={designLink} />
+        <Computation
+          devLink={devLink}
+          designLink={designLink}
+          setActiveStep={setActiveStep}
+        />
       )}
+      {activeStep === 2 && <Results />}
     </>
   );
 };
