@@ -79,7 +79,10 @@ function Computation({
           break;
         case 3:
           // send to AI
-          mutate();
+          // mutate();
+          setTimeout(() => {
+            setActiveStep(2);
+          }, 2000);
           break;
       }
     }

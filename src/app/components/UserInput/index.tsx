@@ -1,4 +1,5 @@
 import React from "react";
+import { UserInputWrapper } from "./styles";
 
 function UserInput({ setDevLink, setDesignLink, computeError }: any) {
   const onSubmit = (e: any) => {
@@ -11,28 +12,37 @@ function UserInput({ setDevLink, setDesignLink, computeError }: any) {
     setDesignLink(designLink);
   };
   return (
-    <section>
+    <UserInputWrapper>
       <form onSubmit={onSubmit}>
-        {computeError && <p>{computeError}</p>}
+        <h1>Welcome to Orion</h1>
+        <p>
+          Orion is your ultimate solution for streamlining and enhancing the
+          design audit process. Harnessing the power of cutting-edge Artificial
+          Intelligence, Orion redefines the way design audits are conducted,
+          ensuring efficiency, accuracy, and unmatched precision in every
+          assessment.
+        </p>
+        <h3>Get Started</h3>
+
+        <input
+          placeholder="Enter Dev URL"
+          type="text"
+          defaultValue="http://localhost:3000/pages/button"
+          required
+        />
+
+        <input
+          type="text"
+          defaultValue="https://www.figma.com/file/kFGBtg88aoYKtNGE0HPONq/Untitled?node-id=1%3A2&mode=dev"
+          required
+          placeholder="Enter Figma Frame Link"
+        />
         <div>
-          Dev Link:{" "}
-          <input
-            type="text"
-            defaultValue="http://localhost:3000/pages/button"
-            required
-          />
+          <button type="reset">Reset</button>
+          <button type="submit">Submit</button>
         </div>
-        <div>
-          Design Link:{" "}
-          <input
-            type="text"
-            defaultValue="https://www.figma.com/file/kFGBtg88aoYKtNGE0HPONq/Untitled?node-id=1%3A2&mode=dev"
-            required
-          />
-        </div>
-        <button type="submit">Submit</button>
       </form>
-    </section>
+    </UserInputWrapper>
   );
 }
 
