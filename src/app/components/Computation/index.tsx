@@ -29,7 +29,7 @@ function Computation({ devLink, designLink }: any) {
   const fetchApiData = () => {
     return axios.post("/api/ai", {
       devData,
-      designData,
+      designData: designData?.data?.data,
     });
   };
 
