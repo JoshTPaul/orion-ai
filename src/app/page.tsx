@@ -7,6 +7,7 @@ import Computation from "./components/Computation";
 import Results from "./components/Results";
 import { QueryClientProvider, useMutation } from "react-query";
 import { reactQueryClient } from "./config/reactQueryClient";
+import "./globalStyles.css";
 
 const Home = () => {
   const [devData, setDevData] = useState(null);
