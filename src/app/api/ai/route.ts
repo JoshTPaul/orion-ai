@@ -6,23 +6,15 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request, res: any) {
   try {
     const body = await req.json();
-    const { ref } = body;
-    const figmaData = await axios.get(
-      "http://localhost:3000/api/get-figma-data"
-    );
-
-    const { document, title, lastModified, thumbnailUrl } =
-      figmaData?.data?.data;
-
-    const msg = await msgConstructor(ref, document?.children);
-    console.log("🚀 ~ file: route.ts:18 ~ POST ~ msg:", { msg, ref, document });
-    // const api = new ChatGPTAPI({
-    //   apiKey: "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",
-    // });
-    // const res = await api.sendMessage(msg);
+    const { devData, designData } = body;
+    const msg = await msgConstructor(designData, devData);
+    const api = new ChatGPTAPI({
+      apiKey: "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",
+    });
+    const res = await api.sendMessage(msg);
     return await NextResponse.json(
       {
-        r: "res",
+        res,
       },
       { status: 200 }
     );
