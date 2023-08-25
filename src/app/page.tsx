@@ -1,5 +1,4 @@
 "use client";
-import Iframe from "./iframe/page";
 import UserInput from "./components/UserInput";
 import { useEffect, useState } from "react";
 import Computation from "./components/Computation";

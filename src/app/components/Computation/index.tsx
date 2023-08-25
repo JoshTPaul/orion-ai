@@ -1,20 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useMutation } from "react-query";
-import Iframe from "@/app/iframe/page";
+import Iframe from "@/app/iframe";
 
-function Computation({ devLink, designLink, setActiveStep }: any) {
+function Computation({ devLink, designLink }: any) {
   const [devData, setDevData] = useState(null);
 
-  // const { data, mutate, isLoading } = useMutation(() => fetchApiData());
+  const { data, mutate, isLoading } = useMutation(() => fetchApiData());
+  console.log("🚀 ~ file: index.tsx:10 ~ Computation ~ data:", data);
 
-  // mutate();
+  const fetchDesignData = ({ id, nodeId }: { id: string; nodeId: string }) => {
+    return axios.post("/api/get-figma-data", {
+      id,
+      nodeId,
+    });
+  };
 
-  // const fetchApiData = () => {
-  //   return axios.post("/api/ai", {
-  //     devData,
-  //   });
-  // };
+  const { data: designData, mutate: getDesignData } =
+    useMutation(fetchDesignData);
+
+  useEffect(() => {
+    getDesignData({
+      id: "kFGBtg88aoYKtNGE0HPONq",
+      nodeId: "1-2",
+    });
+  }, []);
+
+  const fetchApiData = () => {
+    return axios.post("/api/ai", {
+      devData,
+      designData,
+    });
+  };
 
   return (
     <section>
@@ -26,10 +43,10 @@ function Computation({ devLink, designLink, setActiveStep }: any) {
         <li>Combine</li>
         <li>Send to AI</li>
         <li>Get AI result</li>
-        <button onClick={() => setActiveStep(2)}>Submit</button>
+        <button onClick={() => mutate()}>Submit</button>
       </ul>
-      {/* <p>{isLoading ? "loading" : JSON.stringify(data?.data?.res?.text)}</p> */}
-      {/* <Iframe /> */}
+      <p>{isLoading ? "loading" : JSON.stringify(data?.data?.res?.text)}</p>
+      <Iframe link={devLink} onRefLoad={(resp: any) => setDevData(resp)} />
     </section>
   );
 }

@@ -14,7 +14,11 @@ function UserInput({ setDevLink, setDesignLink }: any) {
     <section>
       <form onSubmit={onSubmit}>
         <div>
-          Dev Link: <input />
+          Dev Link:{" "}
+          <input
+            type="text"
+            defaultValue="http://localhost:3000/pages/button"
+          />
         </div>
         <div>
           Design Link: <input />
