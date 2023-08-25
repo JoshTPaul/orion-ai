@@ -4,6 +4,7 @@ import Iframe from "./iframe/page";
 import axios from "axios";
 import UserInput from "./components/UserInput";
 import { useEffect, useState } from "react";
+import Computation from "./components/Computation";
 
 const Home = () => {
   const onRefLoad = (ref: any) => {
@@ -29,9 +30,7 @@ const Home = () => {
         <UserInput setDevLink={setDevLink} setDesignLink={setDesignLink} />
       )}
       {activeStep === 1 && (
-        <p>
-          Loading (devLink: {devLink}, designLink: {designLink})
-        </p>
+        <Computation devLink={devLink} designLink={designLink} />
       )}
     </>
   );
