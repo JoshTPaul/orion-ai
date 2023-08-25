@@ -1,3 +1,8 @@
 body {
   margin: 0;
 }
+
+.hidden {
+  scale: 0;
+  visibility: hidden;
+}
