@@ -38,8 +38,12 @@ function UserInput({ setDevLink, setDesignLink, computeError }: any) {
           placeholder="Enter Figma Frame Link"
         />
         <div>
-          <button type="reset">Reset</button>
-          <button type="submit">Submit</button>
+          <button type="reset" className="secondary">
+            Reset
+          </button>
+          <button type="submit" className="primary">
+            Submit
+          </button>
         </div>
       </form>
     </UserInputWrapper>

@@ -53,8 +53,8 @@ export const ResultsWrapper = styled.section`
 
     .listContainer {
       flex-grow: 1;
-      padding-left: 0;
-      padding-right: 0;
+      padding: 0;
+      overflow-y: auto;
     }
   }
 
@@ -73,12 +73,18 @@ export const ResultsWrapper = styled.section`
   }
 
   .compBreakdown {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    padding-bottom: 1.25rem;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: var(--t900);
+
+    h6 {
+      color: var(--t200);
+    }
   }
 `;
 
@@ -124,6 +130,11 @@ export const ComponentCardWrapper = styled.div`
       grid-column: 1/4;
       width: 100%;
       color: var(--t700);
+      margin: 0;
+    }
+
+    .error {
+      color: #fdab2f;
     }
   }
 `;
