@@ -9,21 +9,37 @@
 
 * {
   box-sizing: border-box;
+  --t50: #f6f6f6;
+  --t100: #e7e7e7;
   --t200: #d1d1d1;
+  --t300: #b0b0b0;
   --t400: #888888;
   --t500: #6d6d6d;
+  --t600: #5d5d5d;
   --t700: #4f4f4f;
   --t900: #363636;
   --t950: #262626;
   font-family: "Open Sans";
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   background: linear-gradient(180deg, #262626 0%, #494949 100%) no-repeat;
-  color: var(--t200);
+  color: var(--t50);
   display: flex;
   min-height: 100vh;
+}
+
+header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  display: grid;
+  place-items: center;
 }
 
 .hidden {
@@ -41,8 +57,25 @@ p {
   margin: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
 h3 {
   font-size: 1.25rem;
+}
+
+h5 {
+  font-size: 0.875rem;
 }
 
 h6 {
@@ -67,6 +100,27 @@ button {
   cursor: pointer;
   height: 40px;
   border-radius: 40px;
+  padding: 0 1rem;
+  color: inherit;
+}
+
+button.primary {
+  outline: 1px solid var(--t500);
+  background-color: var(--t700);
+}
+
+button.primary:hover {
+  background-color: var(--t600);
+}
+
+button.secondary {
+  color: var(--t950);
+  outline: 1px solid var(--t200);
+  background-color: var(--t50);
+}
+
+button.secondary:hover {
+  background-color: var(--t200);
 }
 
 .card {

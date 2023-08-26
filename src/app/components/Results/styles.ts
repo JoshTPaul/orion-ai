@@ -47,6 +47,7 @@ export const ResultsWrapper = styled.section`
 
       p {
         font-size: 12px;
+        color: var(--t200);
       }
     }
 
@@ -102,12 +103,16 @@ export const ComponentCardWrapper = styled.div`
     h5 {
       display: flex;
       align-items: center;
+
+      span {
+        color: var(--t500);
+      }
     }
   }
 
   .details {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr auto;
     gap: 0.75rem;
     padding-bottom: 1.25rem;
 

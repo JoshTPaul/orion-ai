@@ -14,7 +14,8 @@ function Results({ devLink, designLink }: any) {
   return (
     <ResultsWrapper>
       <h3 className="title">
-        Your Design Audit Successfully Completed! <button>Example</button>
+        Your Design Audit Successfully Completed!{" "}
+        <button className="primary">Upload New Links</button>
       </h3>
 
       <div className="flexContainer">
@@ -49,7 +50,7 @@ function Results({ devLink, designLink }: any) {
                   This is a list of all your components and their statuses
                 </h6>
               </div>
-              <button>Example</button>
+              <button className="secondary">Export</button>
             </div>
             <ComponentCard />
             <ComponentCard />

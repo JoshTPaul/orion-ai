@@ -13,7 +13,7 @@ function ComponentCard() {
     <ComponentCardWrapper className={showDetails ? "active" : ""}>
       <div className="preview" onClick={() => setShowDetails(!showDetails)}>
         <h5>
-          {isError ? <ErrorIcon /> : <SuccessIcon />}&nbsp;Component Name{" "}
+          {isError ? <ErrorIcon /> : <SuccessIcon />}&nbsp;Component Name&nbsp;
           <span>• 2 Errors Found</span>
         </h5>
         <ChevronIcon />
