@@ -3,7 +3,7 @@ import { ResultsWrapper } from "./styles";
 import Iframe from "@/app/iframe";
 import ComponentCard from "./ComponentCard";
 
-function Results({ devLink, designLink }: any) {
+function Results({ devLink, designLink, restartFlow }: any) {
   const designUrl = new URL(designLink);
   const fileId = designUrl.pathname.split("/")[2];
   const fileName = designUrl.pathname.split("/")[3];
@@ -15,7 +15,9 @@ function Results({ devLink, designLink }: any) {
     <ResultsWrapper>
       <h3 className="title">
         Your Design Audit Successfully Completed!{" "}
-        <button className="primary">Upload New Links</button>
+        <button className="primary" onClick={restartFlow}>
+          Upload New Links
+        </button>
       </h3>
 
       <div className="flexContainer">
