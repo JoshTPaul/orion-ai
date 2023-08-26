@@ -15,7 +15,7 @@ const Home = () => {
   const [designLink, setDesignLink] = useState(null);
 
   const [computeError, setComputeError] = useState(false);
-  const [devData, setDevData] = useState("loading");
+  const [devData, setDevData] = useState<any>("loading");
   const [designData, setDesignData] = useState(null);
 
   useEffect(() => {
@@ -23,6 +23,15 @@ const Home = () => {
       setActiveStep(1);
     }
   }, [activeStep, devLink, designLink]);
+
+  const restartFlow = () => {
+    setDevLink(null);
+    setDesignLink(null);
+    setDesignData(null);
+    setDevData("loading");
+    setComputeError(false);
+    setActiveStep(0);
+  };
 
   return (
     <QueryClientProvider client={reactQueryClient}>
@@ -56,7 +65,11 @@ const Home = () => {
         />
       )}
       {activeStep === 2 && (
-        <Results devLink={devLink} designLink={designLink} />
+        <Results
+          devLink={devLink}
+          designLink={designLink}
+          restartFlow={restartFlow}
+        />
       )}
     </QueryClientProvider>
   );
