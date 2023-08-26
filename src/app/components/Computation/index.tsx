@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useMutation } from "react-query";
 import Iframe from "@/app/iframe";
+import { ComputationWrapper } from "./styles";
 
 function Computation({
   devLink,
@@ -16,12 +17,15 @@ function Computation({
 }: any) {
   const [computeStep, setComputeStep] = useState(0);
 
+  const designUrl = new URL(designLink);
+  const fileId = designUrl.pathname.split("/")[2];
+  const nodeId = designUrl.searchParams.get("node-id");
+
   const STEPS = [
-    "Fetching Dev data",
-    "Fetching Figma data",
-    "Combining data",
-    "Sending to AI",
-    "SUCCESS",
+    "Accessing Dev data",
+    "Collecting Figma data",
+    "Consolidating data",
+    "Dispatching to AI",
   ];
 
   const { data, mutate, isLoading } = useMutation(() => fetchApiData(), {
@@ -62,9 +66,6 @@ function Computation({
           break;
         case 1:
           // get design data
-          const designUrl = new URL(designLink);
-          const fileId = designUrl.pathname.split("/")[2];
-          const nodeId = designUrl.searchParams.get("node-id");
 
           getDesignData({
             id: fileId,
@@ -76,6 +77,11 @@ function Computation({
           setTimeout(() => {
             setComputeStep(3);
           }, 2000);
+          const node =
+            designData?.data?.data?.nodes?.[
+              (nodeId || "").replaceAll("-", ":")
+            ];
+          console.log("design data", node);
           break;
         case 3:
           // send to AI
@@ -96,18 +102,21 @@ function Computation({
   };
 
   return (
-    <section>
-      Computation Step:
-      <ul>
-        <p>Compute Error: {computeError ? "true" : "false"}</p>
-        {STEPS[computeStep]}
-      </ul>
+    <ComputationWrapper>
+      <div className="loaderContainer">
+        <div className="loader">
+          {[...new Array(5)]?.map((_: any, i: number) => (
+            <div key={`loader-circle-${i}`} className="loader-circle"></div>
+          ))}
+        </div>
+        <h2>{STEPS[computeStep]}</h2>
+      </div>
       <Iframe
         link={devLink}
         onRefLoad={(resp: any) => setDevData(resp)}
         hidden
       />
-    </section>
+    </ComputationWrapper>
   );
 }
 
