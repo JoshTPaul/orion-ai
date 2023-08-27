@@ -14,7 +14,7 @@ export async function POST(req: Request, res: any) {
         temperature: 0,
       },
     });
-    const res = await api.sendMessage(msg);
+    const res: any = await api.sendMessage(msg);
     return await NextResponse.json(
       {
         res,
@@ -33,7 +33,7 @@ export async function POST(req: Request, res: any) {
       });
       const response = await myBard.ask(msg);
       return NextResponse.json({ error: response }, { status: 200 });
-    } catch (error) {
+    } catch (error: any) {
       return NextResponse.json(
         { error: `Something went wrong ${error}` },
         { status: error?.response?.status }

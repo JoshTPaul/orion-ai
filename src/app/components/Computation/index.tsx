@@ -28,9 +28,7 @@ function Computation({
   const getIds = () => {
     const nodes = designData?.data?.data?.nodes;
     if (nodes) {
-      const idArr = nodes?.["1:2"]?.document?.children.map(
-        (x: string) => x?.name
-      );
+      const idArr = nodes?.["1:2"]?.document?.children.map((x: any) => x?.name);
       return idArr;
     }
   };
