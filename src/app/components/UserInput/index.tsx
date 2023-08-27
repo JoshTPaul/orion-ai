@@ -1,5 +1,7 @@
 import React from "react";
 import { UserInputWrapper } from "./styles";
+import { useMutation } from "react-query";
+import axios from "axios";
 
 function UserInput({ setDevLink, setDesignLink, computeError }: any) {
   const onSubmit = (e: any) => {
@@ -11,10 +13,17 @@ function UserInput({ setDevLink, setDesignLink, computeError }: any) {
     setDevLink(devLink);
     setDesignLink(designLink);
   };
+
+  const generatePdf = () => {
+    return axios.post("/api/export");
+  };
+
+  const { data, mutate } = useMutation(generatePdf);
+
   return (
     <UserInputWrapper>
       <form onSubmit={onSubmit}>
-        <h1>Welcome to Orion</h1>
+        <h1 onClick={mutate}>Welcome to Orion</h1>
         <p>
           Orion is your ultimate solution for streamlining and enhancing the
           design audit process. Harnessing the power of cutting-edge Artificial
