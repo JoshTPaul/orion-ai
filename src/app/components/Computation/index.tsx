@@ -146,11 +146,6 @@ function Computation({
           triggerAiApi({
             inputArr: aiInput,
           });
-          setInterval(() => {
-            triggerAiApi({
-              inputArr: aiInput,
-            });
-          }, 30000);
           break;
       }
     }
