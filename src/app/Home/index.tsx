@@ -18,7 +18,10 @@ function Home() {
   const [devData, setDevData] = useState<any>("loading");
   const [designData, setDesignData] = useState(null);
 
+  const [aiInput, setAiInput] = useState(null);
+
   const fetchApiData = ({ inputArr }: any) => {
+    setAiInput(inputArr);
     return axios.post("/api/ai", {
       inputArr,
     });
@@ -86,6 +89,7 @@ function Home() {
           designLink={designLink}
           restartFlow={restartFlow}
           aiData={aiData}
+          aiInput={aiInput}
         />
       )}
     </>
