@@ -10,7 +10,7 @@ function UserInput({ setDevLink, setDesignLink, computeError }: any) {
     const devLink = e?.target?.[0]?.value;
     const designLink = e?.target?.[1]?.value;
 
-    setDevLink(devLink);
+    setDevLink(devLink?.includes("http") ? devLink : "https://" + devLink);
     setDesignLink(designLink);
   };
 
@@ -36,13 +36,13 @@ function UserInput({ setDevLink, setDesignLink, computeError }: any) {
         <input
           placeholder="Enter Dev URL"
           type="text"
-          defaultValue="http://localhost:3000/pages/button"
+          // defaultValue="http://localhost:3000/pages/button"
           required
         />
 
         <input
           type="text"
-          defaultValue="https://www.figma.com/file/kFGBtg88aoYKtNGE0HPONq/Untitled?node-id=1%3A2&mode=dev"
+          // defaultValue="https://www.figma.com/file/kFGBtg88aoYKtNGE0HPONq/Untitled?node-id=1%3A2&mode=dev"
           required
           placeholder="Enter Figma Frame Link"
         />

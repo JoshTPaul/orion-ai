@@ -3,15 +3,15 @@ import { ResultsWrapper } from "./styles";
 import Iframe from "@/app/iframe";
 import ComponentCard from "./ComponentCard";
 
-function Results({ devLink, designLink, restartFlow, aiData }: any) {
+function Results({ devLink, designLink, restartFlow, aiData, aiInput }: any) {
   const designUrl = new URL(designLink);
   const fileId = designUrl.pathname.split("/")[2];
   const fileName = designUrl.pathname.split("/")[3];
   const nodeId = designUrl.searchParams.get("node-id");
 
+  const aiResult = JSON.parse(aiData?.data?.res?.text)?.response;
+  console.log(aiResult);
   const figmaEmbedURL = `https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/${fileId}/${fileName}?type=design&node-id=${nodeId}&scaling=scale-down-width&page-id=0%3A1`;
-
-  console.log("aiData", aiData);
 
   return (
     <ResultsWrapper>
@@ -56,11 +56,18 @@ function Results({ devLink, designLink, restartFlow, aiData }: any) {
               </div>
               <button className="secondary">Export</button>
             </div>
-            <ComponentCard />
-            <ComponentCard />
-            <ComponentCard />
-            <ComponentCard />
-            <ComponentCard />
+            {aiInput?.map((obj: any, i: number) => {
+              return (
+                <ComponentCard
+                  elementName={obj?.element}
+                  discrepancies={
+                    aiResult.find((res: any) => res.element === obj.element)
+                      .discrepancies
+                  }
+                  data={obj}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

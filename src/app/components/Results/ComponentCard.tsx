@@ -4,7 +4,7 @@ import ChevronIcon from "./Chevron";
 import ErrorIcon from "./ErrorIcon";
 import SuccessIcon from "./SuccessIcon";
 
-function ComponentCard() {
+function ComponentCard({ elementName, discrepancies, data }: any) {
   const [showDetails, setShowDetails] = useState<boolean>(false);
 
   const HEADINGS = ["Property", "Dev", "Design"];
@@ -12,46 +12,52 @@ function ComponentCard() {
   const DETAILS = [
     {
       property: "X Position",
-      dev: 123,
-      design: 123,
+      dev: data?.dev?.x,
+      design: data?.design?.x,
+      isError: data?.dev?.x !== data?.design?.x,
     },
     {
       property: "Y Position",
-      dev: 123,
-      design: 123,
+      dev: data?.dev?.y,
+      design: data?.design?.y,
+      isError: data?.dev?.y !== data?.design?.y,
     },
     {
       property: "Width",
-      dev: "40px",
-      design: "50px",
-      isError: true,
+      dev: data?.dev?.width,
+      design: data?.design?.width,
+      isError: data?.dev?.width !== data?.design?.width,
     },
     {
       property: "Height",
-      dev: "60px",
-      design: "60px",
+      dev: data?.dev?.height,
+      design: data?.design?.height,
+      isError: data?.dev?.height !== data?.design?.height,
     },
     {
       property: "Colour",
-      dev: "#ff0000",
-      design: "#123456",
-      isError: true,
+      dev: data?.dev?.color,
+      design: data?.design?.color,
+      isError: data?.dev?.color !== data?.design?.color,
     },
     {
       property: "Background Colour",
-      dev: "#123456",
-      design: "#123456",
+      dev: data?.dev?.backgroundColor,
+      design: data?.design?.backgroundColor,
+      isError: data?.dev?.backgroundColor !== data?.design?.backgroundColor,
     },
   ];
 
   const isError = DETAILS?.some((obj) => obj?.isError);
 
+  console.log("dta", data);
+
   return (
     <ComponentCardWrapper className={showDetails ? "active" : ""}>
       <div className="preview" onClick={() => setShowDetails(!showDetails)}>
         <h5>
-          {isError ? <ErrorIcon /> : <SuccessIcon />}&nbsp;Component Name&nbsp;
-          <span>• 2 Errors Found</span>
+          {isError ? <ErrorIcon /> : <SuccessIcon />}&nbsp;{elementName}&nbsp;
+          <span>• {discrepancies?.length} Errors Found</span>
         </h5>
         <ChevronIcon />
       </div>

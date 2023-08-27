@@ -3,6 +3,7 @@ import axios from "axios";
 import { useMutation } from "react-query";
 import Iframe from "@/app/iframe";
 import { ComputationWrapper } from "./styles";
+import { rgbaToHex } from "@/app/utils/rgbaToHex";
 
 function Computation({
   devLink,
@@ -22,13 +23,13 @@ function Computation({
 
   const designUrl = new URL(designLink);
   const fileId = designUrl.pathname.split("/")[2];
-  const nodeId: any = designUrl?.searchParams?.get("node-id");
+  const nodeId = designUrl.searchParams.get("node-id")?.replaceAll("-", ":");
   const [aiInput, setAiInput] = useState(null);
 
   const getIds = () => {
     const nodes = designData?.data?.data?.nodes;
     if (nodes) {
-      const idArr = nodes?.[nodeId]?.document?.children.map(
+      const idArr = nodes?.[nodeId || ""]?.document?.children.map(
         (x: any) => x?.name
       );
       return idArr;
@@ -53,6 +54,7 @@ function Computation({
     fetchDesignData,
     {
       onSuccess: (res) => {
+        console.log("res", res);
         setFadeInOut(false);
         setTimeout(() => {
           setComputeStep(2);
@@ -110,17 +112,19 @@ function Computation({
           });
 
           const designDataClean = designData?.data?.data?.nodes[
-            nodeId
+            nodeId || ""
           ].document.children.map((ele: any) => ({
             [ele.name]: {
               x: ele.absoluteBoundingBox.x,
               y: ele.absoluteBoundingBox.y,
               width: ele.absoluteBoundingBox.width,
               height: ele.absoluteBoundingBox.height,
-              color: `rgb(0,0,0)`,
-              backgroundColor: `rgb(0,0,0)`,
+              color: rgbaToHex(ele.fills[0].color),
+              backgroundColor: rgbaToHex(ele.fills[0].color),
             },
           }));
+
+          console.log("designDataClean", designDataClean);
 
           const inputArr = designDataClean.map((obj: any, i: number) => {
             const elementName = Object.keys(obj)?.[0];
