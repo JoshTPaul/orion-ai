@@ -6,8 +6,8 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request, res: any) {
   try {
     const body = await req.json();
-    const { devData, designData } = body;
-    const msg = await msgConstructor(designData, devData);
+    const { inputArr } = body;
+    const msg = await msgConstructor(inputArr);
     const api = new ChatGPTAPI({
       apiKey: "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",
       completionParams: {

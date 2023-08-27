@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useMutation } from "react-query";
 import Iframe from "@/app/iframe";
+import { ComputationWrapper } from "./styles";
 
 function Computation({
   devLink,
@@ -13,10 +14,16 @@ function Computation({
   setDevData,
   designData,
   setDesignData,
+  triggerAiApi,
 }: any) {
   const [computeStep, setComputeStep] = useState(0);
-  const [transformedDevData, setTransformedDevData] = useState(null);
-  const [transformedDesignData, setTransformedDesignData] = useState(null);
+  // fadeIn = true, fadeOut = false
+  const [fadeInOut, setFadeInOut] = useState(true);
+
+  const designUrl = new URL(designLink);
+  const fileId = designUrl.pathname.split("/")[2];
+  const nodeId = designUrl.searchParams.get("node-id");
+  const [aiInput, setAiInput] = useState(null);
 
   const getIds = () => {
     const nodes = designData?.data?.data?.nodes;
@@ -28,24 +35,11 @@ function Computation({
     }
   };
 
-  const fetchApiData = ({ devData, designData }: any) => {
-    return axios.post("/api/ai", {
-      devData,
-      designData,
-    });
-  };
-
-  const { data, mutate, isLoading } = useMutation(fetchApiData, {
-    // onSuccess: () => setActiveStep(2),
-    onError: () => setComputeError("AI fail"),
-  });
-
   const STEPS = [
-    "Fetching Dev data",
-    "Fetching Figma data",
-    "Combining data",
-    "Sending to AI",
-    "SUCCESS",
+    "Accessing Dev data",
+    "Collecting Figma data",
+    "Consolidating data",
+    "Dispatching to AI",
   ];
 
   const fetchDesignData = ({ id, nodeId }: { id: string; nodeId: string }) => {
@@ -59,7 +53,10 @@ function Computation({
     fetchDesignData,
     {
       onSuccess: (res) => {
-        setComputeStep(2);
+        setFadeInOut(false);
+        setTimeout(() => {
+          setComputeStep(2);
+        }, 400);
         setDesignData(res);
       },
       onError: () => {
@@ -74,16 +71,17 @@ function Computation({
       switch (computeStep) {
         case 0:
           // get dev data
+          setFadeInOut(true);
           if (devData === "loading") break;
-          else if (!!devData) setComputeStep(1);
-          else setComputeError("Dev data fail");
+          else if (!!devData) {
+            setFadeInOut(false);
+            setTimeout(() => setComputeStep(1), 400);
+          } else setComputeError("Dev data fail");
 
           break;
         case 1:
           // get design data
-          const designUrl = new URL(designLink);
-          const fileId = designUrl.pathname.split("/")[2];
-          const nodeId = designUrl.searchParams.get("node-id");
+          setFadeInOut(true);
 
           getDesignData({
             id: fileId,
@@ -92,6 +90,7 @@ function Computation({
           break;
         case 2:
           // combine data
+          setFadeInOut(true);
           const ids = getIds();
 
           const devDataClean = ids?.map((x: any) => {
@@ -110,8 +109,6 @@ function Computation({
             };
           });
 
-          setTransformedDevData(devDataClean);
-
           const designDataClean = designData?.data?.data?.nodes[
             "1:2"
           ].document.children.map((ele: any) => ({
@@ -124,39 +121,59 @@ function Computation({
               backgroundColor: `rgb(0,0,0)`,
             },
           }));
-          setTransformedDesignData(designDataClean);
+
+          const inputArr = designDataClean.map((obj: any, i: number) => {
+            const elementName = Object.keys(obj)?.[0];
+            return {
+              element: elementName,
+              design: designDataClean[i][elementName],
+              dev: devDataClean.find(
+                (devObj: any) => Object.keys(devObj)[0] === elementName
+              )[elementName],
+            };
+          });
+
+          setAiInput(inputArr);
+          setFadeInOut(false);
 
           setTimeout(() => {
-            designDataClean?.length > 0 &&
-              devDataClean?.length > 0 &&
-              setComputeStep(3);
-          }, 3000);
+            setComputeStep(3);
+          }, 500);
 
           break;
         case 3:
-          mutate({
-            designData: transformedDesignData,
-            devData: transformedDevData,
+          setFadeInOut(true);
+          triggerAiApi({
+            inputArr: aiInput,
           });
+          setInterval(() => {
+            triggerAiApi({
+              inputArr: aiInput,
+            });
+          }, 30000);
           break;
       }
     }
   }, [computeStep, devData]);
 
   return (
-    <section>
-      <p>{JSON.stringify(data)}</p>
-      Computation Step:
-      <ul>
-        <p>Compute Error: {computeError ? "true" : "false"}</p>
-        {STEPS[computeStep]}
-      </ul>
+    <ComputationWrapper>
+      <div className="loaderContainer">
+        <div className="loader">
+          {[...new Array(5)]?.map((_: any, i: number) => (
+            <div key={`loader-circle-${i}`} className="loader-circle"></div>
+          ))}
+        </div>
+        <h2 className={fadeInOut ? "fadeIn" : "fadeOut"}>
+          {STEPS[computeStep]}
+        </h2>
+      </div>
       <Iframe
         link={devLink}
         onRefLoad={(resp: any) => setDevData(resp)}
         hidden
       />
-    </section>
+    </ComputationWrapper>
   );
 }
 

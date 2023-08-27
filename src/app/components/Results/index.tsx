@@ -3,7 +3,7 @@ import { ResultsWrapper } from "./styles";
 import Iframe from "@/app/iframe";
 import ComponentCard from "./ComponentCard";
 
-function Results({ devLink, designLink }: any) {
+function Results({ devLink, designLink, restartFlow, aiData }: any) {
   const designUrl = new URL(designLink);
   const fileId = designUrl.pathname.split("/")[2];
   const fileName = designUrl.pathname.split("/")[3];
@@ -11,10 +11,15 @@ function Results({ devLink, designLink }: any) {
 
   const figmaEmbedURL = `https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/${fileId}/${fileName}?type=design&node-id=${nodeId}&scaling=scale-down-width&page-id=0%3A1`;
 
+  console.log("aiData", aiData);
+
   return (
     <ResultsWrapper>
       <h3 className="title">
-        Your Design Audit Successfully Completed! <button>Example</button>
+        Your Design Audit Successfully Completed!{" "}
+        <button className="primary" onClick={restartFlow}>
+          Upload New Links
+        </button>
       </h3>
 
       <div className="flexContainer">
@@ -49,7 +54,7 @@ function Results({ devLink, designLink }: any) {
                   This is a list of all your components and their statuses
                 </h6>
               </div>
-              <button>Example</button>
+              <button className="secondary">Export</button>
             </div>
             <ComponentCard />
             <ComponentCard />

@@ -47,13 +47,14 @@ export const ResultsWrapper = styled.section`
 
       p {
         font-size: 12px;
+        color: var(--t200);
       }
     }
 
     .listContainer {
       flex-grow: 1;
-      padding-left: 0;
-      padding-right: 0;
+      padding: 0;
+      overflow-y: auto;
     }
   }
 
@@ -72,12 +73,18 @@ export const ResultsWrapper = styled.section`
   }
 
   .compBreakdown {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    padding-bottom: 1.25rem;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: var(--t900);
+
+    h6 {
+      color: var(--t200);
+    }
   }
 `;
 
@@ -102,12 +109,16 @@ export const ComponentCardWrapper = styled.div`
     h5 {
       display: flex;
       align-items: center;
+
+      span {
+        color: var(--t500);
+      }
     }
   }
 
   .details {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr auto;
     gap: 0.75rem;
     padding-bottom: 1.25rem;
 
@@ -119,6 +130,11 @@ export const ComponentCardWrapper = styled.div`
       grid-column: 1/4;
       width: 100%;
       color: var(--t700);
+      margin: 0;
+    }
+
+    .error {
+      color: #fdab2f;
     }
   }
 `;
