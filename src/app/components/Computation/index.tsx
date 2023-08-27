@@ -36,6 +36,30 @@ function Computation({
     }
   };
 
+  function rgbaToHexDev(rgbaString: any) {
+    const matches = rgbaString.match(/\d+/g);
+    if (!matches || (matches.length !== 3 && matches.length !== 4)) {
+      throw new Error("Invalid RGBA string format");
+    }
+
+    const r = parseInt(matches[0]);
+    const g = parseInt(matches[1]);
+    const b = parseInt(matches[2]);
+
+    let a = 255; // Default alpha value is 1 (255 in hex)
+    if (matches.length === 4) {
+      a = parseFloat(matches[3]) * 255;
+      a = Math.round(a); // Ensure the alpha value is an integer
+    }
+
+    const hexR = r.toString(16).padStart(2, "0");
+    const hexG = g.toString(16).padStart(2, "0");
+    const hexB = b.toString(16).padStart(2, "0");
+    const hexA = a.toString(16).padStart(2, "0");
+
+    const hexColor = `#${hexR}${hexG}${hexB}`;
+    return hexColor;
+  }
   const STEPS = [
     "Accessing Dev data",
     "Collecting Figma data",
@@ -104,8 +128,9 @@ function Computation({
                 y: ele?.offsetTop,
                 width: ele?.offsetWidth,
                 height: ele?.offsetHeight,
-                color: css?.color,
-                backgroundColor: css?.backgroundColor,
+                color: rgbaToHexDev(css?.color),
+                fontSize: css?.fontSize,
+                fontWeight: `${css?.fontWeight}`,
               },
             };
           });
@@ -119,7 +144,12 @@ function Computation({
               width: ele.absoluteBoundingBox.width,
               height: ele.absoluteBoundingBox.height,
               color: rgbaToHex(ele.fills[0].color),
-              backgroundColor: rgbaToHex(ele.fills[0].color),
+              ...(ele?.style?.fontSize && {
+                fontSize: ele?.style?.fontSize + "px",
+              }),
+              ...(ele?.style?.fontWeight && {
+                fontWeight: `${ele?.style?.fontWeight}`,
+              }),
             },
           }));
 

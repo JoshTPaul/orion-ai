@@ -41,10 +41,16 @@ function ComponentCard({ elementName, data }: any) {
       isError: data?.dev?.color !== data?.design?.color,
     },
     {
-      property: "Background Colour",
-      dev: data?.dev?.backgroundColor,
-      design: data?.design?.backgroundColor,
-      isError: data?.dev?.backgroundColor !== data?.design?.backgroundColor,
+      property: "Font Size",
+      dev: data?.dev?.fontSize,
+      design: data?.design?.fontSize,
+      isError: data?.dev?.fontSize !== data?.design?.fontSize,
+    },
+    {
+      property: "Font Weight",
+      dev: data?.dev?.fontWeight,
+      design: data?.design?.fontWeight,
+      isError: data?.dev?.fontWeight != data?.design?.fontWeight,
     },
   ];
 
@@ -68,11 +74,11 @@ function ComponentCard({ elementName, data }: any) {
             </h6>
           ))}
           <hr />
-          {DETAILS.map((obj) => (
+          {DETAILS.filter((obj) => obj?.design).map((obj) => (
             <>
-              <h6>{obj.property}</h6>
+              <h6>{obj?.property}</h6>
               <h6 className={obj?.isError ? "error" : ""}>{obj.dev}</h6>
-              <h6>{obj.design}</h6>
+              <h6>{obj?.design}</h6>
             </>
           ))}
         </div>

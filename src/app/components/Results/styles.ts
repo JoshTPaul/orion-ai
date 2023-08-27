@@ -40,6 +40,20 @@ export const ResultsWrapper = styled.section`
     gap: 1.125rem;
 
     .scoreContainer {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .recharts-wrapper {
+        position: relative;
+        left: -4px;
+      }
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+      }
+
       h5 {
         font-size: 15px;
         margin-bottom: 0.25rem;

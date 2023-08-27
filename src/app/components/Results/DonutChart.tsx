@@ -1,13 +1,13 @@
 import React from "react";
-import { PieChart, Pie, Cell } from "recharts";
+import { PieChart, Pie, Cell, Label } from "recharts";
 
-function DonutChart({ val = 75 }) {
+function DonutChart({ val = 75, color }: any) {
   const data = [
     { name: "portion", value: val },
     { name: "remainder", value: 100 - val },
   ];
 
-  const COLORS = ["#8685f9", "#4f4f4f"];
+  const COLORS = [color, "#4f4f4f"];
 
   return (
     <PieChart width={100} height={100}>
@@ -22,6 +22,14 @@ function DonutChart({ val = 75 }) {
         dataKey="value"
         stroke="none"
       >
+        <Label
+          value={val + "%"}
+          position="center"
+          className="label-top"
+          fontSize="16px"
+          fontWeight={500}
+          fill="#f6f6f6"
+        />
         {data.map((entry, index) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}

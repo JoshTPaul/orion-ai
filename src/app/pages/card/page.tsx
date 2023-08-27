@@ -18,6 +18,8 @@ const Wrapper = styled.div`
     border: 1px solid black;
     border-radius: 8px;
     padding: 24px;
+    color: #ffffff;
+    background-color: #ffffff;
   }
 
   #card-heading {
@@ -31,6 +33,7 @@ const Wrapper = styled.div`
     width: 268px;
     height: 121px;
     border-radius: 4px;
+    color: #f2f4f7;
     background-color: red;
     margin-bottom: 1rem;
   }
