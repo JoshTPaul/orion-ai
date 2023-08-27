@@ -3,13 +3,15 @@ import { ResultsWrapper } from "./styles";
 import Iframe from "@/app/iframe";
 import ComponentCard from "./ComponentCard";
 
-function Results({ devLink, designLink, restartFlow }: any) {
+function Results({ devLink, designLink, restartFlow, aiData }: any) {
   const designUrl = new URL(designLink);
   const fileId = designUrl.pathname.split("/")[2];
   const fileName = designUrl.pathname.split("/")[3];
   const nodeId = designUrl.searchParams.get("node-id");
 
   const figmaEmbedURL = `https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/${fileId}/${fileName}?type=design&node-id=${nodeId}&scaling=scale-down-width&page-id=0%3A1`;
+
+  console.log("aiData", aiData);
 
   return (
     <ResultsWrapper>

@@ -14,6 +14,7 @@ function Computation({
   setDevData,
   designData,
   setDesignData,
+  triggerAiApi,
 }: any) {
   const [computeStep, setComputeStep] = useState(0);
   // fadeIn = true, fadeOut = false
@@ -22,8 +23,7 @@ function Computation({
   const designUrl = new URL(designLink);
   const fileId = designUrl.pathname.split("/")[2];
   const nodeId = designUrl.searchParams.get("node-id");
-  const [transformedDevData, setTransformedDevData] = useState(null);
-  const [transformedDesignData, setTransformedDesignData] = useState(null);
+  const [aiInput, setAiInput] = useState(null);
 
   const getIds = () => {
     const nodes = designData?.data?.data?.nodes;
@@ -34,18 +34,6 @@ function Computation({
       return idArr;
     }
   };
-
-  const fetchApiData = ({ devData, designData }: any) => {
-    return axios.post("/api/ai", {
-      devData,
-      designData,
-    });
-  };
-
-  const { data, mutate, isLoading } = useMutation(fetchApiData, {
-    // onSuccess: () => setActiveStep(2),
-    onError: () => setComputeError("AI fail"),
-  });
 
   const STEPS = [
     "Accessing Dev data",
@@ -102,6 +90,7 @@ function Computation({
           break;
         case 2:
           // combine data
+          setFadeInOut(true);
           const ids = getIds();
 
           const devDataClean = ids?.map((x: any) => {
@@ -120,8 +109,6 @@ function Computation({
             };
           });
 
-          setTransformedDevData(devDataClean);
-
           const designDataClean = designData?.data?.data?.nodes[
             "1:2"
           ].document.children.map((ele: any) => ({
@@ -134,20 +121,36 @@ function Computation({
               backgroundColor: `rgb(0,0,0)`,
             },
           }));
-          setTransformedDesignData(designDataClean);
+
+          const inputArr = designDataClean.map((obj: any, i: number) => {
+            const elementName = Object.keys(obj)?.[0];
+            return {
+              element: elementName,
+              design: designDataClean[i][elementName],
+              dev: devDataClean.find(
+                (devObj: any) => Object.keys(devObj)[0] === elementName
+              )[elementName],
+            };
+          });
+
+          setAiInput(inputArr);
+          setFadeInOut(false);
 
           setTimeout(() => {
-            designDataClean?.length > 0 &&
-              devDataClean?.length > 0 &&
-              setComputeStep(3);
-          }, 3000);
+            setComputeStep(3);
+          }, 500);
 
           break;
         case 3:
-          mutate({
-            designData: transformedDesignData,
-            devData: transformedDevData,
+          setFadeInOut(true);
+          triggerAiApi({
+            inputArr: aiInput,
           });
+          setInterval(() => {
+            triggerAiApi({
+              inputArr: aiInput,
+            });
+          }, 30000);
           break;
       }
     }
