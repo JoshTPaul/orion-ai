@@ -73,9 +73,9 @@ function CardPage() {
         <button id="card-button-1-bg">
           <span id="card-button-1-text">Button</span>
         </button>
-        <button id="card-button-2-bg">
+        {/* <button id="card-button-2-bg">
           <span id="card-button-2-text">Button</span>
-        </button>
+        </button> */}
       </div>
     </Wrapper>
   );
