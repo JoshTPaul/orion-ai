@@ -22,13 +22,14 @@ function Computation({
 
   const designUrl = new URL(designLink);
   const fileId = designUrl.pathname.split("/")[2];
-  const nodeId = designUrl.searchParams.get("node-id");
+  const nodeId = designUrl.searchParams.get("node-id")?.replaceAll("-", ":");
+  console.log(nodeId, "wasd", designUrl);
   const [aiInput, setAiInput] = useState(null);
 
   const getIds = () => {
     const nodes = designData?.data?.data?.nodes;
     if (nodes) {
-      const idArr = nodes?.["1:2"]?.document?.children.map(
+      const idArr = nodes?.[nodeId || ""]?.document?.children.map(
         (x: string) => x?.name
       );
       return idArr;
@@ -110,7 +111,7 @@ function Computation({
           });
 
           const designDataClean = designData?.data?.data?.nodes[
-            "1:2"
+            nodeId || ""
           ].document.children.map((ele: any) => ({
             [ele.name]: {
               x: ele.absoluteBoundingBox.x,

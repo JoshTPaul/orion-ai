@@ -19,6 +19,7 @@ export const UserInputWrapper = styled.section`
       text-align: center;
       max-width: 90ch;
       margin-bottom: 4.5rem;
+      color: var(--t200);
     }
 
     h3 {
