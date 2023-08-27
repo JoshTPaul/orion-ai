@@ -27,39 +27,67 @@ export const ComputationWrapper = styled.section`
       height: 36px;
       border-radius: 100%;
       background-color: var(--t50);
-      animation: loaderAnim 3000ms infinite ease-in-out;
+      animation: loaderAnim 1500ms infinite ease-in-out;
 
       &:nth-of-type(2) {
-        animation-delay: 300ms;
+        animation-delay: 112ms;
+        background-color: var(--t100);
       }
 
       &:nth-of-type(3) {
-        animation-delay: 600ms;
+        animation-delay: 224ms;
+        background-color: var(--t200);
       }
 
       &:nth-of-type(4) {
-        animation-delay: 900ms;
+        animation-delay: 336ms;
+        background-color: var(--t300);
       }
 
       &:nth-of-type(5) {
-        animation-delay: 1200ms;
+        animation-delay: 448ms;
+        background-color: var(--t400);
       }
     }
   }
 
   h2 {
+    opacity: 0;
     align-self: self-start;
+
+    &.fadeIn {
+      animation: fadeIn 400ms forwards;
+    }
+
+    &.fadeOut {
+      animation: fadeOut 400ms forwards;
+    }
   }
 
   @keyframes loaderAnim {
     0%,
-    100% {
+    30% {
       top: 0;
-      background-color: var(--t400);
     }
-    50% {
-      top: -5rem;
-      background-color: var(--t50);
+    15% {
+      top: -4rem;
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
     }
   }
 `;

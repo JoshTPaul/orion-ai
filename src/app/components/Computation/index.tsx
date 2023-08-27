@@ -16,6 +16,8 @@ function Computation({
   setDesignData,
 }: any) {
   const [computeStep, setComputeStep] = useState(0);
+  // fadeIn = true, fadeOut = false
+  const [fadeInOut, setFadeInOut] = useState(true);
 
   const designUrl = new URL(designLink);
   const fileId = designUrl.pathname.split("/")[2];
@@ -44,7 +46,10 @@ function Computation({
     fetchDesignData,
     {
       onSuccess: (res) => {
-        setComputeStep(2);
+        setFadeInOut(false);
+        setTimeout(() => {
+          setComputeStep(2);
+        }, 400);
         setDesignData(res);
       },
       onError: () => {
@@ -59,13 +64,17 @@ function Computation({
       switch (computeStep) {
         case 0:
           // get dev data
+          setFadeInOut(true);
           if (devData === "loading") break;
-          else if (!!devData) setComputeStep(1);
-          else setComputeError("Dev data fail");
+          else if (!!devData) {
+            setFadeInOut(false);
+            setTimeout(() => setComputeStep(1), 400);
+          } else setComputeError("Dev data fail");
 
           break;
         case 1:
           // get design data
+          setFadeInOut(true);
 
           getDesignData({
             id: fileId,
@@ -74,6 +83,7 @@ function Computation({
           break;
         case 2:
           // combine data
+          setFadeInOut(true);
           setTimeout(() => {
             setComputeStep(3);
           }, 2000);
@@ -109,7 +119,9 @@ function Computation({
             <div key={`loader-circle-${i}`} className="loader-circle"></div>
           ))}
         </div>
-        <h2>{STEPS[computeStep]}</h2>
+        <h2 className={fadeInOut ? "fadeIn" : "fadeOut"}>
+          {STEPS[computeStep]}
+        </h2>
       </div>
       <Iframe
         link={devLink}
