@@ -23,7 +23,7 @@ function UserInput({ setDevLink, setDesignLink, computeError }: any) {
   return (
     <UserInputWrapper>
       <form onSubmit={onSubmit}>
-        <h1 onClick={mutate}>Welcome to Orion</h1>
+        <h1>Welcome to Orion</h1>
         <p>
           Orion is your ultimate solution for streamlining and enhancing the
           design audit process. Harnessing the power of cutting-edge Artificial
@@ -36,18 +36,18 @@ function UserInput({ setDevLink, setDesignLink, computeError }: any) {
         <input
           placeholder="Enter Dev URL"
           type="text"
-          // defaultValue="http://localhost:3000/pages/button"
+          defaultValue="http://localhost:3000/pages/card"
           required
         />
 
         <input
           type="text"
-          // defaultValue="https://www.figma.com/file/kFGBtg88aoYKtNGE0HPONq/Untitled?node-id=1%3A2&mode=dev"
+          defaultValue="https://www.figma.com/file/kFGBtg88aoYKtNGE0HPONq/Untitled?type=design&node-id=155-505&mode=design&t=KUudXA4k7i2Svbbc-0"
           required
           placeholder="Enter Figma Frame Link"
         />
         <div>
-          <button type="reset" className="secondary">
+          <button type="button" className="secondary">
             Reset
           </button>
           <button type="submit" className="primary">

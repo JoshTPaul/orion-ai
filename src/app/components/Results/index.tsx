@@ -8,9 +8,6 @@ function Results({ devLink, designLink, restartFlow, aiData, aiInput }: any) {
   const fileId = designUrl.pathname.split("/")[2];
   const fileName = designUrl.pathname.split("/")[3];
   const nodeId = designUrl.searchParams.get("node-id");
-
-  const aiResult = JSON.parse(aiData?.data?.res?.text)?.response;
-  console.log(aiResult);
   const figmaEmbedURL = `https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/${fileId}/${fileName}?type=design&node-id=${nodeId}&scaling=scale-down-width&page-id=0%3A1`;
 
   return (
@@ -57,16 +54,7 @@ function Results({ devLink, designLink, restartFlow, aiData, aiInput }: any) {
               <button className="secondary">Export</button>
             </div>
             {aiInput?.map((obj: any, i: number) => {
-              return (
-                <ComponentCard
-                  elementName={obj?.element}
-                  discrepancies={
-                    aiResult.find((res: any) => res.element === obj.element)
-                      .discrepancies
-                  }
-                  data={obj}
-                />
-              );
+              return <ComponentCard elementName={obj?.element} data={obj} />;
             })}
           </div>
         </div>

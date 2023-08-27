@@ -4,7 +4,7 @@ import ChevronIcon from "./Chevron";
 import ErrorIcon from "./ErrorIcon";
 import SuccessIcon from "./SuccessIcon";
 
-function ComponentCard({ elementName, discrepancies, data }: any) {
+function ComponentCard({ elementName, data }: any) {
   const [showDetails, setShowDetails] = useState<boolean>(false);
 
   const HEADINGS = ["Property", "Dev", "Design"];
@@ -49,15 +49,14 @@ function ComponentCard({ elementName, discrepancies, data }: any) {
   ];
 
   const isError = DETAILS?.some((obj) => obj?.isError);
-
-  console.log("dta", data);
+  const length = DETAILS?.filter((obj) => obj.isError)?.length;
 
   return (
     <ComponentCardWrapper className={showDetails ? "active" : ""}>
       <div className="preview" onClick={() => setShowDetails(!showDetails)}>
         <h5>
           {isError ? <ErrorIcon /> : <SuccessIcon />}&nbsp;{elementName}&nbsp;
-          <span>• {discrepancies?.length} Errors Found</span>
+          <span>• {length} Errors Found</span>
         </h5>
         <ChevronIcon />
       </div>

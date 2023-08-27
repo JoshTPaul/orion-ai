@@ -54,7 +54,6 @@ function Computation({
     fetchDesignData,
     {
       onSuccess: (res) => {
-        console.log("res", res);
         setFadeInOut(false);
         setTimeout(() => {
           setComputeStep(2);
@@ -123,8 +122,6 @@ function Computation({
               backgroundColor: rgbaToHex(ele.fills[0].color),
             },
           }));
-
-          console.log("designDataClean", designDataClean);
 
           const inputArr = designDataClean.map((obj: any, i: number) => {
             const elementName = Object.keys(obj)?.[0];
