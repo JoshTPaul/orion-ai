@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 export async function POST(req: any, res: any) {
   const body = await req.json();
   const { id, nodeId } = body;
-
   try {
     // kFGBtg88aoYKtNGE0HPONq;
     const response = await axios.get(

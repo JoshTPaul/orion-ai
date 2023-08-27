@@ -19,11 +19,7 @@ const Iframe = ({
       height={1024}
       className={`devFrame ${hidden ? "hidden" : ""}`}
       onLoad={() => {
-        onRefLoad(
-          getComputedStyle(
-            ref?.current?.contentWindow?.document?.querySelector("#button")
-          )
-        );
+        return onRefLoad(ref?.current?.contentWindow?.document);
       }}
     />
   );

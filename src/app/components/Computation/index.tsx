@@ -15,6 +15,30 @@ function Computation({
   setDesignData,
 }: any) {
   const [computeStep, setComputeStep] = useState(0);
+  const [transformedDevData, setTransformedDevData] = useState(null);
+  const [transformedDesignData, setTransformedDesignData] = useState(null);
+
+  const getIds = () => {
+    const nodes = designData?.data?.data?.nodes;
+    if (nodes) {
+      const idArr = nodes?.["1:2"]?.document?.children.map(
+        (x: string) => x?.name
+      );
+      return idArr;
+    }
+  };
+
+  const fetchApiData = ({ devData, designData }: any) => {
+    return axios.post("/api/ai", {
+      devData,
+      designData,
+    });
+  };
+
+  const { data, mutate, isLoading } = useMutation(fetchApiData, {
+    // onSuccess: () => setActiveStep(2),
+    onError: () => setComputeError("AI fail"),
+  });
 
   const STEPS = [
     "Fetching Dev data",
@@ -23,11 +47,6 @@ function Computation({
     "Sending to AI",
     "SUCCESS",
   ];
-
-  const { data, mutate, isLoading } = useMutation(() => fetchApiData(), {
-    onSuccess: () => setActiveStep(2),
-    onError: () => setComputeError("AI fail"),
-  });
 
   const fetchDesignData = ({ id, nodeId }: { id: string; nodeId: string }) => {
     return axios.post("/api/get-figma-data", {
@@ -73,30 +92,60 @@ function Computation({
           break;
         case 2:
           // combine data
+          const ids = getIds();
+
+          const devDataClean = ids?.map((x: any) => {
+            const ele = devData?.querySelector(`#${x}`);
+            const css = getComputedStyle(ele);
+
+            return {
+              [x]: {
+                x: ele?.offsetLeft,
+                y: ele?.offsetTop,
+                width: ele?.offsetWidth,
+                height: ele?.offsetHeight,
+                color: css?.color,
+                backgroundColor: css?.backgroundColor,
+              },
+            };
+          });
+
+          setTransformedDevData(devDataClean);
+
+          const designDataClean = designData?.data?.data?.nodes[
+            "1:2"
+          ].document.children.map((ele: any) => ({
+            [ele.name]: {
+              x: ele.absoluteBoundingBox.x,
+              y: ele.absoluteBoundingBox.y,
+              width: ele.absoluteBoundingBox.width,
+              height: ele.absoluteBoundingBox.height,
+              color: `rgb(0,0,0)`,
+              backgroundColor: `rgb(0,0,0)`,
+            },
+          }));
+          setTransformedDesignData(designDataClean);
+
           setTimeout(() => {
-            setComputeStep(3);
-          }, 2000);
+            designDataClean?.length > 0 &&
+              devDataClean?.length > 0 &&
+              setComputeStep(3);
+          }, 3000);
+
           break;
         case 3:
-          // send to AI
-          // mutate();
-          setTimeout(() => {
-            setActiveStep(2);
-          }, 2000);
+          mutate({
+            designData: transformedDesignData,
+            devData: transformedDevData,
+          });
           break;
       }
     }
   }, [computeStep, devData]);
 
-  const fetchApiData = () => {
-    return axios.post("/api/ai", {
-      devData,
-      designData: designDataApi?.data?.data,
-    });
-  };
-
   return (
     <section>
+      <p>{JSON.stringify(data)}</p>
       Computation Step:
       <ul>
         <p>Compute Error: {computeError ? "true" : "false"}</p>

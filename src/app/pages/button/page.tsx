@@ -24,7 +24,11 @@ const But = styled.div`
 // Test
 
 const Button = () => {
-  return <But id="button">Lorem Ipsum</But>;
+  return (
+    <But id="button_1">
+      <p id="button_1_text">Lorem Ipsum</p>
+    </But>
+  );
 };
 
 export default Button;

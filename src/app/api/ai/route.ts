@@ -10,6 +10,9 @@ export async function POST(req: Request, res: any) {
     const msg = await msgConstructor(designData, devData);
     const api = new ChatGPTAPI({
       apiKey: "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",
+      completionParams: {
+        temperature: 0,
+      },
     });
     const res = await api.sendMessage(msg);
     return await NextResponse.json(
