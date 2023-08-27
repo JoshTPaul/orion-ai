@@ -19,16 +19,16 @@
 html,
 body {
   height: 100%;
+  background: linear-gradient(180deg, #262626 0%, #494949 100%);
 }
 
 body {
   margin: 0;
-  background: linear-gradient(180deg, #262626 0%, #494949 100%) no-repeat;
   color: var(--t50);
   display: flex;
   min-height: 100vh;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background: url("/assets/images/bottom.png") bottom left no-repeat,
+    url("/assets/images/top.png") top right no-repeat;
 }
 
 header {

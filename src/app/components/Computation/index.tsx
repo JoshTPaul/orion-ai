@@ -23,14 +23,13 @@ function Computation({
   const designUrl = new URL(designLink);
   const fileId = designUrl.pathname.split("/")[2];
   const nodeId = designUrl.searchParams.get("node-id")?.replaceAll("-", ":");
-  console.log(nodeId, "wasd", designUrl);
   const [aiInput, setAiInput] = useState(null);
 
   const getIds = () => {
     const nodes = designData?.data?.data?.nodes;
     if (nodes) {
       const idArr = nodes?.[nodeId || ""]?.document?.children.map(
-        (x: string) => x?.name
+        (x: any) => x?.name
       );
       return idArr;
     }

@@ -9,7 +9,7 @@ const Iframe = ({
   link: any;
   hidden?: boolean;
 }) => {
-  const ref = useRef(null);
+  const ref: any = useRef(null);
 
   return (
     <iframe
