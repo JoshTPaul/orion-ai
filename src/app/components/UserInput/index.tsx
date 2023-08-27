@@ -36,13 +36,13 @@ function UserInput({ setDevLink, setDesignLink, computeError }: any) {
         <input
           placeholder="Enter Dev URL"
           type="text"
-          defaultValue="http://localhost:3000/pages/card"
+          defaultValue="http://localhost:3000/pages/examplePage"
           required
         />
 
         <input
           type="text"
-          defaultValue="https://www.figma.com/file/kFGBtg88aoYKtNGE0HPONq/Untitled?type=design&node-id=155-505&mode=design&t=KUudXA4k7i2Svbbc-0"
+          defaultValue="https://www.figma.com/file/kFGBtg88aoYKtNGE0HPONq/Untitled?type=design&node-id=219-20&mode=design&t=iCoMLAa1GURfiNjY-4"
           required
           placeholder="Enter Figma Frame Link"
         />

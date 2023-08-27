@@ -54,8 +54,12 @@ function ComponentCard({ elementName, data }: any) {
     },
   ];
 
-  const isError = DETAILS?.some((obj) => obj?.isError);
-  const length = DETAILS?.filter((obj) => obj.isError)?.length;
+  const isError = DETAILS.filter((obj) => obj?.design)?.some(
+    (obj) => obj?.isError
+  );
+  const length = DETAILS.filter((obj) => obj?.design)?.filter(
+    (obj) => obj.isError
+  )?.length;
 
   return (
     <ComponentCardWrapper className={showDetails ? "active" : ""}>

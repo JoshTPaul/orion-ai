@@ -91,6 +91,10 @@ input {
   background-color: var(--t500);
 }
 
+input::placeholder {
+  color: var(--t50);
+}
+
 button {
   appearance: none;
   border: none;
