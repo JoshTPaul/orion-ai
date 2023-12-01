@@ -5,7 +5,7 @@ import { Tick } from "./Tick";
 import { Alert } from "./Alert";
 
 function UserInput({ setDevLink, setDesignLink, computeError }: any) {
-  const basePath = window?.location?.origin;
+  const basePath = global?.window && window?.location?.origin;
   const [_devLink, _setDevLink] = useState<string>("");
   const [_designLink, _setDesignLink] = useState<string>("");
   const [showDemoTools, setShowDemoTools] = useState<boolean>(false);
@@ -100,6 +100,7 @@ function UserInput({ setDevLink, setDesignLink, computeError }: any) {
           </p>
           {DEMOS.map(({ title, dev, design }, i: number) => (
             <div
+              key={`demo-${i}`}
               className={selectedDemo === i ? "selected" : ""}
               onClick={() => {
                 setSelectedDemo(i);

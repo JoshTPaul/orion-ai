@@ -10,7 +10,7 @@ export async function POST(req: any, res: any) {
       `https://api.figma.com/v1/files/${id}/nodes?ids=${nodeId}`,
       {
         headers: {
-          "x-figma-token": "figd_OXBn2c98W5yHWYqW7duuBIhOWCQ089MYTanUiA7_",
+          "x-figma-token": `${process.env.NEXT_PUBLIC_FIGMA_API_KEY}`,
         },
       }
     );
