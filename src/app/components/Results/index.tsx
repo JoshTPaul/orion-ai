@@ -74,7 +74,7 @@ function Results({ devLink, designLink, restartFlow, aiData, aiInput }: any) {
             <div>
               <h5>{getTitle()}</h5>
               <p>
-                Your work earned a {(orionScore / 10).toFixed(2)}/10 score,{" "}
+                Your work earned a {(orionScore / 10).toFixed(0)}/10 score,{" "}
                 {getSubtitle()}
               </p>
             </div>
