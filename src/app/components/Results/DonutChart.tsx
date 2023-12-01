@@ -23,7 +23,7 @@ function DonutChart({ val = 75, color }: any) {
         stroke="none"
       >
         <Label
-          value={val + "%"}
+          value={val.toFixed(2) + "%"}
           position="center"
           className="label-top"
           fontSize="16px"
