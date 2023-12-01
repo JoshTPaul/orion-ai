@@ -58,9 +58,9 @@ const Wrapper = styled.div`
     top: 693px;
     left: 184px;
     width: 168px;
-    height: 17px;
-    font-size: 14px;
-    font-weight: 500;
+    height: 15px;
+    font-size: 13px;
+    font-weight: 400;
     color: #0d000d;
   }
 
@@ -69,7 +69,7 @@ const Wrapper = styled.div`
     left: 30px;
     width: 40px;
     height: 21px;
-    color: #ffffff;
+    color: #fdfdfd;
     background-image: url("/assets/images/ham.png");
   }
 `;

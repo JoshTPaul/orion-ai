@@ -12,10 +12,10 @@ function Results({ devLink, designLink, restartFlow, aiData, aiInput }: any) {
   const nodeId = designUrl.searchParams.get("node-id");
   const figmaEmbedURL = `https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/${fileId}/${fileName}?type=design&node-id=${nodeId}&scaling=scale-down-width&page-id=0%3A1`;
 
-  const aiResult =
-    aiData?.data?.res?.text && JSON.parse(aiData?.data?.res?.text)?.response;
+  // const aiResult =
+  //   aiData?.data?.res?.text && JSON.parse(aiData?.data?.res?.text)?.response;
 
-  const orionScore = calculateCombinedScore(aiResult);
+  const orionScore = calculateCombinedScore(aiData.data.res, 7);
 
   const getTitle = () => {
     if (orionScore >= 90)
@@ -74,8 +74,8 @@ function Results({ devLink, designLink, restartFlow, aiData, aiInput }: any) {
             <div>
               <h5>{getTitle()}</h5>
               <p>
-                Your work earned a {(orionScore / 10).toFixed(0)}/10 score,{" "}
-                {getSubtitle()}
+                Your work earned a {Number((orionScore / 10).toFixed(1))}/10
+                score, {getSubtitle()}
               </p>
             </div>
           </div>

@@ -32,7 +32,11 @@ function Home() {
     mutate,
     isLoading,
   } = useMutation(fetchApiData, {
-    onSuccess: () => setActiveStep(2),
+    onSuccess: () => {
+      setTimeout(() => {
+        setActiveStep(2);
+      }, Math.random() * 2000 + 3000);
+    },
     onError: () => {
       setActiveStep(1);
       setComputeError("AI fail");
