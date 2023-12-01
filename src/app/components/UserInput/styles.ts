@@ -41,4 +41,91 @@ export const UserInputWrapper = styled.section`
       }
     }
   }
+
+  .alert {
+    cursor: pointer;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    color: #e6bf63;
+  }
+
+  aside {
+    position: fixed;
+    overflow: hidden;
+
+    .backdrop {
+      opacity: 0;
+    }
+
+    .drawer {
+      position: absolute;
+      width: 500px;
+      height: 100vh;
+      height: 100dvh;
+      top: 0;
+      right: -600px;
+      padding: 1rem;
+      background-color: #292929;
+
+      h3 {
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .close {
+        cursor: pointer;
+      }
+
+      p {
+        margin-bottom: 2rem;
+      }
+
+      div {
+        cursor: pointer;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid white;
+        margin-bottom: 1rem;
+        background-color: #3c3c3c;
+
+        a {
+          color: currentColor;
+        }
+
+        h4 {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        &.selected {
+          background-color: #313830;
+          border-color: #70af62;
+        }
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+
+    &.active {
+      inset: 0;
+
+      .backdrop {
+        position: absolute;
+        inset: 0;
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.75);
+      }
+
+      .drawer {
+        right: 0;
+      }
+    }
+  }
 `;
