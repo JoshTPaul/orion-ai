@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import PDFDocument from "pdfkit";
 import fs from "fs";
-import Helvetica from "pdfkit/js/data/Helvetica.afm";
 
 export async function POST(req: any, res: any) {
   const report = `
