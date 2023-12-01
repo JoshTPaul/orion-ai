@@ -89,7 +89,13 @@ function Results({ devLink, designLink, restartFlow, aiData, aiInput }: any) {
               <button className="secondary">Export</button>
             </div>
             {aiInput?.map((obj: any, i: number) => {
-              return <ComponentCard elementName={obj?.element} data={obj} />;
+              return (
+                <ComponentCard
+                  key={`componentcard-${i}`}
+                  elementName={obj?.element}
+                  data={obj}
+                />
+              );
             })}
           </div>
         </div>

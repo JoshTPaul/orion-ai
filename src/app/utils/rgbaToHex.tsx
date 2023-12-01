@@ -1,4 +1,10 @@
-export function rgbaToHex({ r, g, b }) {
+type Args = {
+  r: number;
+  g: number;
+  b: number;
+};
+
+export function rgbaToHex({ r, g, b }: Args) {
   const red = Math.round(r * 255)
     .toString(16)
     .padStart(2, "0");
