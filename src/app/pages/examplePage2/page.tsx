@@ -29,7 +29,7 @@ const Wrapper = styled.div`
     height: 174px;
     color: #ffffff;
     font-size: 144px;
-    font-weight: 500;
+    font-weight: 300;
     z-index: 1;
   }
 
